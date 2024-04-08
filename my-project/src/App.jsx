@@ -1,11 +1,9 @@
 import React from "react"
-import Landing from "./landing"
-import Navbar from "./Navbar"
+import Landing from "./components/landing"
 function App() {
 
   return (
       <>
-        <Navbar />
         <Landing />
       </>
   )
