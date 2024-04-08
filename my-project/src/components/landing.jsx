@@ -1,12 +1,23 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Navbar from './Navbar'
+import nasaapi from '../nasaapi'
 
 const Landing = () => {
+  const [apod, setApod] = useState({})
+
+  useEffect(() => {
+    nasaapi.getApod().then(apodData => {
+      setApod(apodData.data)
+    }).catch(error => {
+      console.error('Error fetching APOD:', error);
+    });
+  }, []);
+
   return (
     <>
-      <Navbar />
-      <div className='h-screen w-full bg-black flex items-center justify-center'>
-        <h1 className='animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-5xl font-black'>
+    <Navbar />
+      <div className='h-screen w-full bg-black flex items-center justify-center  bg-no-repeat bg-cover' style={{ backgroundImage: apod.url ? `url(${apod.url})` : 'none' }}>
+        <h1 className='animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-5xl'>
           Explore the Universe with Stellar Watch
         </h1>
       </div>
